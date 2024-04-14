@@ -6,7 +6,6 @@
 ---@type LazySpec
 return {
 
-  { "github/copilot.vim", event = "VeryLazy", version = "*" },
   -- == Examples of Adding Plugins ==
 
   "andweeb/presence.nvim",

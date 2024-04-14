@@ -1,10 +1,14 @@
-if true then return {} end -- WARN: remove this line to activate file
 return {
-  "github/copilot.vim",
-  opts = function(_, config)
-    config.sources = {
-      require("copilot").sources,
-    }
-    return config
-  end,
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+  { "zbirenbaum/copilot-cmp", config = function() require("copilot_cmp").setup() end },
 }
