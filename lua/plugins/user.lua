@@ -5,6 +5,7 @@
 
 ---@type LazySpec
 return {
+
   -- == Examples of Adding Plugins ==
 
   -- "andweeb/presence.nvim",
