@@ -9,6 +9,14 @@ return {
     "renerocksai/telekasten.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
+
+  {
+    "tadmccorkle/markdown.nvim",
+    ft = "markdown", -- or 'event = "VeryLazy"'
+    opts = {
+      -- configuration here or empty for defaults
+    },
+  },
   -- == Examples of Adding Plugins ==
 
   -- "andweeb/presence.nvim",

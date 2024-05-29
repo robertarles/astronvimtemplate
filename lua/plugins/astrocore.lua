@@ -42,6 +42,7 @@ return {
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
+
       -- first key is the mode
       n = {
         -- second key is the lefthand side of the map
@@ -64,6 +65,16 @@ return {
         ["<Leader>b"] = { desc = "Buffers" },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<Leader>zf"] = {
+          function() require("telekasten").find_notes() end,
+        },
+        -- }:lua require('telekasten').find_notes()<CR>
+        -- nnoremap <leader>zd :lua require('telekasten').find_daily_notes()<CR>
+        -- nnoremap <leader>zg :lua require('telekasten').search_notes()<CR>
+        -- nnoremap <leader>zz :lua require('telekasten').follow_link()<CR>
+        ["<Leader>z"] = {
+          function() require("telekasten").panel() end,
+        },
       },
       t = {
         -- setting a mapping to false will disable it
