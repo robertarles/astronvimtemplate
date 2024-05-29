@@ -5,7 +5,10 @@
 
 ---@type LazySpec
 return {
-
+  {
+    "renerocksai/telekasten.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
   -- == Examples of Adding Plugins ==
 
   -- "andweeb/presence.nvim",
