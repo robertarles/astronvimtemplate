@@ -3,11 +3,70 @@
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- Here are some examples:
 
----@type LazySpec
+-- @type LazySpec
 return {
+  {
+    "robertarles/taskra.nvim",
+    ft = "markdown",
+    lazy = true,
+
+    -- dir = "user.plugins.taskra", -- This points to the file we created
+    config = function()
+      local taskra = require "taskra"
+      vim.api.nvim_set_hl(0, "TaskraRed", { fg = "#FF4060" })
+      vim.api.nvim_set_hl(0, "TaskraRed", { fg = "#FF4000" })
+      vim.api.nvim_set_hl(0, "TaskraYellow", { fg = "#C7F000" })
+      vim.api.nvim_set_hl(0, "TaskraGreen", { fg = "#008B00" })
+      vim.api.nvim_set_hl(0, "TaskraBlue", { fg = "#00008B" })
+      -- Error: Usually red, for errors
+      -- Warning: Often yellow or orange, for warnings
+      -- Info: Typically blue, for informational highlights
+      -- Hint: Often cyan or light blue, for hints
+      -- Todo: Usually stands out (like bright yellow), for TODO comments
+      -- Search: For search matches
+      -- IncSearch: For the current search match
+      -- Visual: For visually selected text
+      -- Comment: For comments in code
+      -- String: For string literals in code
+      -- Number: For numeric literals
+      -- Function: For function names
+      -- Keyword: For language keywords
+      -- Constant: For constant values
+      -- Add syntax highlighting rules
+      --taskra.add_syntax_rule("TODO", "Todo")
+      --taskra.add_syntax_rule("FIXME", "Error")
+      --taskra.add_syntax_rule("NOTE", "Comment")
+      taskra.add_syntax_rule("- %[.%] [ .]*([aA])%d ", "TaskraRed")
+      taskra.add_syntax_rule("- %[.%] [ .]*([bB])%d ", "TaskraYellow")
+      taskra.add_syntax_rule("- %[.%] [ .]*([cCdDeEfF])%d ", "TaskraGreen")
+      taskra.add_syntax_rule("- %[([^xX])%] ", "Warning")
+      taskra.add_syntax_rule("- %[([xX])%] ", "Error")
+      -- Add text manipulation functions
+      taskra.add_text_function("upper", function()
+        local line = vim.api.nvim_get_current_line()
+        vim.api.nvim_set_current_line(line:upper())
+      end)
+
+      -- create a vim command
+      vim.api.nvim_create_user_command("ReloadTaskra", function()
+        package.loaded["taskra"] = nil
+        require("taskra").setup()
+        vim.cmd "bufdo e"
+      end, {})
+
+      -- Setup the plugin
+      taskra.setup()
+    end,
+  },
   {
     "renerocksai/telekasten.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
+    ft = "markdown",
+    config = function(plugin, opts)
+      require("telekasten").setup {
+        home = vim.fn.expand "~/plaintext.robert/notes", -- Put the name of your notes directory here
+      }
+    end,
   },
   {
     "hedyhli/markdown-toc.nvim",
